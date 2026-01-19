@@ -51,7 +51,7 @@ const userSchema = new Schema(
 userSchema.pre("save", async function(next){
     if(!this.isModified("password")) return next();
 
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })               //using arrow function here will create porblem becz we need reference here as we cant use this in arrow function
 
@@ -87,4 +87,4 @@ userSchema.methods.generateRefreshToken = function(){
     )
 }
 
-export const User = mongoose.model("User",userSchema)
+export const User = mongoose.model("User", userSchema)
