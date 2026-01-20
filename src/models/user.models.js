@@ -49,10 +49,10 @@ const userSchema = new Schema(
 )
 
 userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+    if(!this.isModified("password")) return ; // next()
 
     this.password = await bcrypt.hash(this.password, 10)
-    next()
+    //next()
 })               //using arrow function here will create porblem becz we need reference here as we cant use this in arrow function
 
 userSchema.methods.isPasswordCorrect = async function 
