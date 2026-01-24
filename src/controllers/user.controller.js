@@ -3,6 +3,7 @@ import {ApiError} from "../utils/ApiError.js" ;
 import {User} from "../models/user.models.js" ; //imported to check user already exist or not
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 
 const generateAccessAndRefreshTokens = async(userId) => {
@@ -182,8 +183,8 @@ const logoutUser = asyncHandler(async(req,res) => {
         await User.findByIdAndUpdate(
             req.user._id,
             {
-               $set: {
-                  refreshToken: null
+               $unset: {
+                  refreshToken: 1
                }
             },
             {
@@ -393,7 +394,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) =>{
             },
             isSubscribed: {
                $cond: {
-                 if: {$in: [req.user?._id, "subscribers.subscriber"]},
+                 if: {$in: [req.user?._id, "$subscribers.subscriber"]},
                  then: true,
                  else: false
                }
