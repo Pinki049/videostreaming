@@ -32,5 +32,13 @@ This project was developed to practice real-world backend concepts such as authe
 
 ##  Installation & Setup
 
-### 1️ Clone the repository
-git clone 
+### GitHub repository
+   https://github.com/Pinki049/videostreaming.git
+
+
+## Running the Project
+This project can be run locally for testing.
+
+npm install
+npm run dev
+
